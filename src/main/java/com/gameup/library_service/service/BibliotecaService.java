@@ -75,11 +75,15 @@ public class BibliotecaService {
 
     public List<BibliotecaResponseDTO> obtenerBibliotecaPorUsuario(Long idUsuario) {
 
+        UsuarioDTO usuario;
+
         try {
-            usuarioFeignClient.obtenerUsuarioPorId(idUsuario);
+            usuario = usuarioFeignClient.obtenerUsuarioPorId(idUsuario);
         } catch (FeignException.NotFound e) {
             throw new ResourceNotFoundException("Usuario con id " + idUsuario + " no encontrado");
         }
+
+        String nombreUsuario = usuario.getNombrePantalla();
 
         return bibliotecaRepository.findByIdUsuario(idUsuario)
                 .stream()
@@ -90,7 +94,7 @@ public class BibliotecaService {
                     } catch (Exception e) {
                         log.warn("No se pudo obtener el nombre del juego con id {}: {}", entrada.getIdJuego(), e.getMessage());
                     }
-                    return mapToResponse(entrada, null, nombreJuego);
+                    return mapToResponse(entrada, nombreUsuario, nombreJuego);
                 })
                 .toList();
     }

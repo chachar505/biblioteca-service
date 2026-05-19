@@ -15,9 +15,4 @@ public interface JuegoFeignClient {
 
     @GetMapping("/api/juegos/{id}")
     JuegoDTO obtenerJuegoPorId(@PathVariable Long id);
-@FeignClient(name = "juego-service", url = "${juego.service.url}")
-public interface JuegoFeignClient {
-
-    @GetMapping("/juegos/{id}")
-    JuegoDTO obtenerJuegoPorId(@PathVariable("id") Long id);
 }

@@ -15,9 +15,4 @@ public interface UsuarioFeignClient {
 
     @GetMapping("/api/usuarios/{id}")
     UsuarioDTO obtenerUsuarioPorId(@PathVariable Long id);
-@FeignClient(name = "usuario-service", url = "${usuario.service.url}")
-public interface UsuarioFeignClient {
-
-    @GetMapping("/usuarios/{id}")
-    UsuarioDTO obtenerUsuarioPorId(@PathVariable("id") Long id);
 }
